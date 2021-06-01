@@ -26,8 +26,11 @@ public class TokenManagerAddon extends EconomyAddon {
 
     @Override
     public boolean shouldEnable() {
-        Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("TokenManager");
-        return (plugin != null) && (plugin.isEnabled());
+        Plugin plugin = Bukkit.getPluginManager().getPlugin("TokenManager");
+        if ((plugin != null) && plugin.isEnabled()) return true;
+        System.out.println("[SimplePets TokenManagerAddon] You seem to be missing the TokenManager plugin...");
+        System.out.println("[SimplePets TokenManagerAddon] Download it here: https://www.spigotmc.org/resources/8610/");
+        return false;
     }
 
     @Override
