@@ -4,15 +4,17 @@ import com.google.common.collect.Lists;
 import me.realized.tokenmanager.api.TokenManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-import simplepets.brainsynder.addon.presets.EconomyAddon;
+import simplepets.brainsynder.addon.presets.EconomyModule;
 import simplepets.brainsynder.api.Namespace;
+import simplepets.brainsynder.api.plugin.SimplePets;
+import simplepets.brainsynder.debug.DebugBuilder;
 
 import java.util.List;
 import java.util.OptionalLong;
 import java.util.UUID;
 
 @Namespace(namespace = "TokenManager")
-public class TokenManagerAddon extends EconomyAddon {
+public class TokenManagerAddon extends EconomyModule {
     private TokenManager manager = null;
 
     @Override
@@ -28,8 +30,10 @@ public class TokenManagerAddon extends EconomyAddon {
     public boolean shouldEnable() {
         Plugin plugin = Bukkit.getPluginManager().getPlugin("TokenManager");
         if ((plugin != null) && plugin.isEnabled()) return true;
-        System.out.println("[SimplePets TokenManagerAddon] You seem to be missing the TokenManager plugin...");
-        System.out.println("[SimplePets TokenManagerAddon] Download it here: https://www.spigotmc.org/resources/8610/");
+        SimplePets.getDebugLogger().debug(DebugBuilder.build().setLevel(SimplePets.ADDON).setMessages(
+                "You seem to be missing the TokenManager plugin...",
+                "Download it here: https://www.spigotmc.org/resources/8610/"
+        ));
         return false;
     }
 
@@ -55,23 +59,5 @@ public class TokenManagerAddon extends EconomyAddon {
     @Override
     public void withdraw(UUID uuid, double amount) {
         manager.removeTokens(Bukkit.getPlayer(uuid), (long) amount);
-    }
-
-    @Override
-    public double getVersion() {
-        return 0.1;
-    }
-
-    @Override
-    public String getAuthor() {
-        return "brainsynder";
-    }
-
-    @Override
-    public List<String> getDescription() {
-        return Lists.newArrayList(
-                "&7This addon links into the TokenManager Plugin",
-                "&7To make it possible to buy pets with in-game money"
-        );
     }
 }
