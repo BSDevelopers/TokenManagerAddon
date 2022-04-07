@@ -8,5 +8,12 @@
   "description": [
     "&7This addon links into the TokenManager Plugin",
     "&7To make it possible to buy pets with in-game money"
+  ],
+
+  "plugin-support": [
+    {
+      "name": "TokenManager",
+      "url": "https://www.spigotmc.org/resources/8610/"
+    }
   ]
 }
